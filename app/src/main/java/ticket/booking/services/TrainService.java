@@ -24,6 +24,9 @@ public class TrainService {
         trainList = objectMapper.readValue(trains, new TypeReference<List<Train>>() {
         });
     }
+    public List<Train> searchTrains(String source, String destination) {
+        return trainList.stream().filter(train -> validTrain(train, source, destination)).collect(Collectors.toList());
+    }
 
     public void addTrain(Train newTrain){
         Optional<Train> existingTrain = trainList.stream().filter(train -> train.getTrainId().equalsIgnoreCase(newTrain.getTrainId())).findFirst();
